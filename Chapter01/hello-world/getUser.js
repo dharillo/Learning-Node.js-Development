@@ -1,6 +1,6 @@
 function getUser(userId, callback) {
   setTimeout(() => {
-    callback(Number(userId));
+    callback({ userId, name: `User ${userId}` });
   }, Math.random() * 1000);
 }
 

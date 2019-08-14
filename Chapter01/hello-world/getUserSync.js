@@ -13,7 +13,7 @@ function sleep(time) {
 }
 function getUserSync(userId) {
   sleep(Math.random() * 1000);
-  return Number(userId);
+  return { userId, name: `User ${userId}` };
 }
 
 module.exports = getUserSync;
