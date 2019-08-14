@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/dharillo/Learning-Node.js-Development/issues"
   },
-  "homepage": "https://github.com/dharillo/Learning-Node.js-Development#readme"
+  "homepage": "https://github.com/dharillo/Learning-Node.js-Development#readme",
+  "dependencies": {
+    "lodash": "^4.17.15"
+  }
 }
