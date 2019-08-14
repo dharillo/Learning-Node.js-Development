@@ -1,4 +1,4 @@
-const getUser = require('getUser');
+const getUser = require('./getUser');
 
 console.log('starting user1');
 getUser('123', (user1) => {
