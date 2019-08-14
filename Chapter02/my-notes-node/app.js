@@ -2,9 +2,11 @@ console.log('Starting app...');
 
 const fs = require('fs');
 const os = require('os');
-const notes = require('./notes');
+const _ = require('lodash');
 
-console.log(notes.add(9, -2));
+console.log(_.isString(true));
+console.log(_.isString('david'));
+
 process.exit(0);
 const user = os.userInfo();
 
