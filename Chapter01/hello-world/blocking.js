@@ -1,4 +1,4 @@
-const getUserSync = require('getUserSync');
+const getUserSync = require('./getUserSync');
 
 console.log('starting user1');
 const user1 = getUserSync('123');
@@ -9,4 +9,4 @@ const user2 = getUserSync('321');
 console.log('user2', user2);
 
 const sum = 1 + 2;
-console.console.log(`The sum is ${sum}`);
+console.log(`The sum is ${sum}`);
