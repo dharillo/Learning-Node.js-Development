@@ -27,7 +27,7 @@ function getAll() {
  * @param {string} title Title of the note to read from storage
  * @returns Note retrieved or null if there is no note with the given title.
  */
-function readNote(title) {
+function getNote(title) {
   console.log('Reading note', title);
   return notes.get(title);
 }
@@ -47,6 +47,6 @@ function removeNote(title) {
 module.exports = {
   addNote,
   getAll,
-  readNote,
+  getNote,
   removeNote,
 };
