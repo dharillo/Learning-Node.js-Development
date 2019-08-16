@@ -2,7 +2,25 @@ const yargs = require('yargs');
 
 const notes = require('./notes');
 
-const { argv } = yargs;
+const title = {
+  describe: 'Title of note',
+  demand: true,
+  type: 'string',
+  alias: 't',
+};
+const body = {
+  describe: 'Body of note',
+  demand: true,
+  type: 'string',
+  alias: 'b',
+};
+
+const { argv } = yargs
+  .command('add', 'Add a new note', { title, body })
+  .command('list', 'List all notes')
+  .command('read', 'Read a note', { title })
+  .command('remove', 'Remove a note', { title })
+  .help();
 const command = argv._.length > 0 ? argv._[0] : null;
 
 function printNote(header, note, error) {
