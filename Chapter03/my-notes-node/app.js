@@ -2,12 +2,16 @@ console.log('Starting app...');
 
 const fs = require('fs');
 const _ = require('lodash');
+const yargs = require('yargs');
 
 const notes = require('./notes');
 
+const { argv } = yargs;
 const command = process.argv.length > 2 ? process.argv[2] : null;
 
 console.log('Command:', command);
+console.log('Process:', process.argv);
+console.log('Yargs:', argv);
 
 if (command === 'add') {
   console.log('Adding new note');
