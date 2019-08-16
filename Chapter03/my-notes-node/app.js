@@ -1,17 +1,9 @@
-console.log('Starting app...');
-
-const fs = require('fs');
-const _ = require('lodash');
 const yargs = require('yargs');
 
 const notes = require('./notes');
 
 const { argv } = yargs;
 const command = argv._.length > 0 ? argv._[0] : null;
-
-console.log('Command:', command);
-console.log('Process:', process.argv);
-console.log('Yargs:', argv);
 
 function printNote(header, note, error) {
   if (note) {
