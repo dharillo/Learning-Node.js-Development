@@ -1,8 +1,12 @@
 const express = require('express');
 const { spawn } = require('child_process');
+const { join } = require('path');
+
+const SERVER_PORT = 3000;
 
 const app = express();
-const SERVER_PORT = 3000;
+
+app.use(express.static(join(__dirname, 'public')));
 
 app
   .get('/', (_, res) => {
@@ -13,6 +17,9 @@ app
   })
   .get('/about', (_, res) => {
     res.send('<h1>About</h1>');
+  })
+  .get('/bad', (_, res) => {
+    res.json({ errorMessage: 'Unable to handle request' });
   });
 
 app.listen(SERVER_PORT, () => {
