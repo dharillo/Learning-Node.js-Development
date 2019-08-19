@@ -5,12 +5,6 @@ const hbs = require('hbs');
 
 const SERVER_PORT = 3000;
 
-const app = express();
-
-hbs.registerPartials(join(__dirname, 'views', 'partials'));
-app.set('view engine', 'hbs');
-app.use(express.static(join(__dirname, 'public')));
-
 /**
  * Gets the current year
  *
@@ -20,18 +14,25 @@ function getCurrentYear() {
   return new Date().getFullYear();
 }
 
+const app = express();
+
+hbs.registerPartials(join(__dirname, 'views', 'partials'));
+hbs.registerHelper('getCurrentYear', getCurrentYear);
+hbs.registerHelper('upper', (text) => text.toUpperCase());
+app.set('view engine', 'hbs');
+app.use(express.static(join(__dirname, 'public')));
+
+
 app
   .get('/', (_, res) => {
     res.render('home.hbs', {
       pageTitle: 'Home page',
-      currentYear: getCurrentYear(),
       welcomeMessage: 'Welcome to the Learning Node.js Development homepage',
     });
   })
   .get('/about', (_, res) => {
     res.render('about.hbs', {
       pageTitle: 'About Page',
-      currentYear: getCurrentYear(),
     });
   })
   .get('/bad', (_, res) => {
