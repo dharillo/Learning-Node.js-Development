@@ -1,5 +1,12 @@
 const request = require('request');
 
+/**
+ * Gets the info of the given address from the Google Geocode API.
+ *
+ * @param {string} address Address to query
+ * @param {(err: Error, data: any) => void} callback Callback to process the result.
+ * The data parameter will contain the response from the server if no error is detected
+ */
 function getAddressData(address, callback) {
   request.get(
     `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.WEATHER_API_TOKEN}`,
