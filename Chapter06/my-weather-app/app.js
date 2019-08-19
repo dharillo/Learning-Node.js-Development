@@ -1,5 +1,17 @@
 const request = require('request');
+const yargs = require('yargs');
 
+const { argv } = yargs
+  .options({
+    a: {
+      alias: 'address',
+      demand: true,
+      describe: 'Address to fetch weather for',
+      string: true,
+    },
+  })
+  .help()
+  .alias('help', 'h');
 /**
  * Gets the info of the given address from the Google Geocode API.
  *
@@ -9,7 +21,7 @@ const request = require('request');
  */
 function getAddressData(address, callback) {
   request.get(
-    `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.WEATHER_API_TOKEN}`,
+    `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${process.env.WEATHER_API_TOKEN}`,
     { json: true },
     (err, res, body) => {
       if (err) {
@@ -25,7 +37,7 @@ function getAddressData(address, callback) {
   );
 }
 
-getAddressData('1301 lombard street philadelphia', (err, data) => {
+getAddressData(argv.address, (err, data) => {
   if (err) {
     console.error('Unable to get the requested address', err);
   } else {
