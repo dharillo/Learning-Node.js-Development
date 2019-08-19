@@ -1,5 +1,6 @@
-const request = require('request');
 const yargs = require('yargs');
+
+const geocode = require('./geocode/geocode');
 
 const { argv } = yargs
   .options({
@@ -12,38 +13,11 @@ const { argv } = yargs
   })
   .help()
   .alias('help', 'h');
-/**
- * Gets the info of the given address from the Google Geocode API.
- *
- * @param {string} address Address to query
- * @param {(err: Error, data: any) => void} callback Callback to process the result.
- * The data parameter will contain the response from the server if no error is detected
- */
-function getAddressData(address, callback) {
-  request.get(
-    `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${process.env.WEATHER_API_TOKEN}`,
-    { json: true, timeout: 10000 },
-    (err, res, body) => {
-      if (err) {
-        callback(new Error(`Unable to reach Google servers. ${err}`));
-      } else if (res.statusCode !== 200) {
-        callback(new Error(`Rejected request. Status code: ${res.statusCode}`));
-      } else if (body.status !== 'OK') {
-        callback(new Error(`Unsuccessful request. Status: ${body.status}`));
-      } else {
-        callback(null, body);
-      }
-    },
-  );
-}
 
-getAddressData(argv.address, (err, data) => {
+geocode.geocodeAddress(argv.address, (err, data) => {
   if (err) {
     console.error('Unable to get the requested address', err);
   } else {
-    const result = data.results[0];
-    console.log(`Address: ${result.formatted_address}`);
-    console.log(`Latitude : ${result.geometry.location.lat}`);
-    console.log(`Longitude: ${result.geometry.location.lng}`);
+    geocode.printAddress(data);
   }
 });
