@@ -1,0 +1,19 @@
+{
+  "name": "my-node-web-server",
+  "version": "1.0.0",
+  "description": "Sample expressjs server",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha",
+    "start": "node index.js"
+  },
+  "keywords": [
+    "sample",
+    "expressjs"
+  ],
+  "author": "David Harillo Sánchez",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
