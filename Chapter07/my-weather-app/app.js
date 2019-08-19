@@ -20,17 +20,14 @@ const { argv } = yargs
   .help()
   .alias('help', 'h');
 
-geocode.geocodeAddress(argv.address, (err, data) => {
-  if (err) {
-    console.error('Unable to get the requested address', err.message);
-  } else {
+geocode.geocodeAddress(argv.address)
+  .then((data) => {
     geocode.printAddress(data, argv.coordinates);
-    forecast.forecastLocation(data.latitude, data.longitude, (forecastErr, forecastData) => {
-      if (forecastErr) {
-        console.error(forecastErr.message);
-      } else {
-        console.log(`It's currently ${forecastData.temperature}ºC. It feels like ${forecastData.apparentTemperature}ºC`);
-      }
-    });
-  }
-});
+    return forecast.forecastLocation(data.latitude, data.longitude);
+  })
+  .then((data) => {
+    console.log(`It's currently ${data.temperature}ºC. It feels like ${data.apparentTemperature}ºC`);
+  })
+  .catch((err) => {
+    console.error(err.message);
+  });
