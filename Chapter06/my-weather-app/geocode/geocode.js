@@ -41,11 +41,15 @@ function geocodeAddress(address, callback) {
  *  latitude: number,
  *  longitude: number
  * }} addressInfo Response body of a geocode request
+ * @param {boolean} showCoordinates Indicates if the address coordinates must be
+ * printed also
  */
-function printAddress(addressInfo) {
+function printAddress(addressInfo, showCoordinates) {
   console.log(`Address: ${addressInfo.address}`);
-  console.log(`Latitude : ${addressInfo.latitude}`);
-  console.log(`Longitude: ${addressInfo.longitude}`);
+  if (showCoordinates) {
+    console.log(`Latitude : ${addressInfo.latitude}`);
+    console.log(`Longitude: ${addressInfo.longitude}`);
+  }
 }
 
 module.exports = {
