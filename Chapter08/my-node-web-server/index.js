@@ -1,11 +1,13 @@
 const express = require('express');
 const { spawn } = require('child_process');
 const { join } = require('path');
+const hbs = require('hbs');
 
 const SERVER_PORT = 3000;
 
 const app = express();
 
+app.set('view engine', 'hbs');
 app.use(express.static(join(__dirname, 'public')));
 
 app
@@ -16,7 +18,10 @@ app
     });
   })
   .get('/about', (_, res) => {
-    res.send('<h1>About</h1>');
+    res.render('about.hbs', {
+      pageTitle: 'About Page',
+      currentYear: new Date().getFullYear(),
+    });
   })
   .get('/bad', (_, res) => {
     res.json({ errorMessage: 'Unable to handle request' });
