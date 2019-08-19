@@ -22,6 +22,9 @@ getAddressData('1301 lombard street philadelphia', (err, data) => {
   if (err) {
     console.error('Unable to get the requested address', err);
   } else {
-    console.log(`Address: ${data.results[0].formatted_address}`);
+    const result = data.results[0];
+    console.log(`Address: ${result.formatted_address}`);
+    console.log(`Latitude : ${result.geometry.location.lat}`);
+    console.log(`Longitude: ${result.geometry.location.lng}`);
   }
 });
