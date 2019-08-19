@@ -22,14 +22,14 @@ const { argv } = yargs
 function getAddressData(address, callback) {
   request.get(
     `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${process.env.WEATHER_API_TOKEN}`,
-    { json: true },
+    { json: true, timeout: 10000 },
     (err, res, body) => {
       if (err) {
-        callback(err);
+        callback(new Error(`Unable to reach Google servers. ${err}`));
       } else if (res.statusCode !== 200) {
-        callback(new Error(`Unsuccessful request. Status code: ${res.statusCode}`));
+        callback(new Error(`Rejected request. Status code: ${res.statusCode}`));
       } else if (body.status !== 'OK') {
-        callback(new Error(`Rejected request. Status: ${body.status}`));
+        callback(new Error(`Unsuccessful request. Status: ${body.status}`));
       } else {
         callback(null, body);
       }
