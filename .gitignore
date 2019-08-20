@@ -1,2 +1,3 @@
 node_modules
 .setTokens.sh
+*.log

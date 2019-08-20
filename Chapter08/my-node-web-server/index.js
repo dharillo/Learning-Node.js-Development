@@ -2,6 +2,7 @@ const express = require('express');
 const { spawn } = require('child_process');
 const { join } = require('path');
 const hbs = require('hbs');
+const fs = require('fs');
 
 const SERVER_PORT = 3000;
 
@@ -19,9 +20,25 @@ const app = express();
 hbs.registerPartials(join(__dirname, 'views', 'partials'));
 hbs.registerHelper('getCurrentYear', getCurrentYear);
 hbs.registerHelper('upper', (text) => text.toUpperCase());
-app.set('view engine', 'hbs');
-app.use(express.static(join(__dirname, 'public')));
 
+app.set('view engine', 'hbs');
+app.use((req, res, next) => {
+  const now = new Date().toString();
+  const log = `${now}: ${req.method} ${req.url}`;
+  console.log(log);
+  fs.appendFile('server.log', `${log}\n`, (err) => {
+    if (err) {
+      console.error('Unable to append to server.log');
+    }
+  });
+  next();
+});
+if (process.env.MAINTENANCE) {
+  app.use((req, res, next) => {
+    res.render('maintenance.hbs');
+  });
+}
+app.use(express.static(join(__dirname, 'public')));
 
 app
   .get('/', (_, res) => {
