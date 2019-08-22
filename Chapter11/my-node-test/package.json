@@ -13,7 +13,10 @@
   "license": "ISC",
   "devDependencies": {
     "expect": "^24.9.0",
+    "jest": "^24.9.0",
+    "jest-mock": "^24.9.0",
     "mocha": "^6.2.0",
+    "rewire": "^4.0.1",
     "supertest": "^4.0.2"
   },
   "dependencies": {
