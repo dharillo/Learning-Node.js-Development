@@ -34,7 +34,7 @@ app.use((req, res, next) => {
   next();
 });
 if (process.env.MAINTENANCE) {
-  app.use((req, res, next) => {
+  app.use((req, res) => {
     res.render('maintenance.hbs');
   });
 }
